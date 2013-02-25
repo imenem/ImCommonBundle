@@ -1,0 +1,20 @@
+{
+    "name": "imenem/common-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony ImCommonBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Artem Ponomarenko",
+            "email": "imenem@inbox.ru"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.4",
+        "symfony/framework-bundle": ">=2.2.x-dev"
+    },
+    "autoload": {
+        "psr-0": { "Im\\CommonBundle": "" }
+    },
+    "target-dir": "Im/CommonBundle"
+}
