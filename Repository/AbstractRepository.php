@@ -195,7 +195,7 @@ extends         EntityRepository
     /**
      * Метод возвращает новый конструктор запроса
      *
-     * @return      Im\MusicShopBundle\Repository\QueryBuilder
+     * @return      Im\CommonBundle\Repository\QueryBuilder
      */
     protected function getQueryBuilder()
     {
