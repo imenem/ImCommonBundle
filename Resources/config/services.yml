@@ -1,0 +1,11 @@
+parameters:
+    im.validator.file_exists.class: Im\CommonBundle\Validator\Constraints\FileExistsValidator
+
+services:
+    # Валидатор для проверки существования файла
+    im.validator.file_exists:
+        class: '%im.validator.file_exists.class%'
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: validator.constraint_validator, alias: im.validator.file_exists }
