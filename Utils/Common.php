@@ -52,10 +52,23 @@ trait Common
      *
      * @throws      \RuntimeException                       Бросается, если имя репозитория не найдено
      */
-    protected function getRepo($entity = '', $bundle = '')
+    protected function getRepo($entity = '')
     {
+        if (strpos($entity, ':') !== false)
+        {
+            $full_name = $entity;
+        }
+        elseif (strlen($entity) > 0)
+        {
+            $full_name = "{$this->getBundleName()}:{$entity}";
+        }
+        else
+        {
+            $full_name = "{$this->getBundleName()}:{$this->getEntityName()}";
+        }
+
         return $this->getEntityManager()
-                    ->getRepository("{$this->getBundleName($bundle)}:{$this->getEntityName($entity)}");
+                    ->getRepository($full_name);
     }
 
     /**
@@ -78,13 +91,8 @@ trait Common
      *
      * @throws      RuntimeException        Имя сущности определить не удалось
      */
-    protected function getEntityName($entity = '')
+    protected function getEntityName()
     {
-        if (!empty ($entity))
-        {
-            return $entity;
-        }
-
         if (empty($this->entity))
         {
             $result = [];
@@ -108,13 +116,8 @@ trait Common
      *
      * @return      string
      */
-    protected function getBundleName($bundle = '')
+    protected function getBundleName()
     {
-        if (!empty ($bundle))
-        {
-            return $bundle;
-        }
-
         if (empty($this->bundle))
         {
             $class_name = str_replace(['\\Bundle\\', '\\'], '', get_called_class());

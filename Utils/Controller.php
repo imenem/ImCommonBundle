@@ -109,11 +109,28 @@ trait Controller
      *
      * @return      \Symfony\Component\HttpFoundation\Response
      */
-    protected function renderData(array $data, $view = '', $entity = '', $bundle = '')
+    protected function renderData(array $data, $view = '')
     {
-        $template = "{$this->getBundleName($bundle)}:{$this->getEntityName($entity)}:{$this->getActionName($view)}.html.twig";
+        if (strlen($view) === 0)
+        {
+            $view_elements  = [$this->getBundleName(), $this->getEntityName(), $this->getActionName()];
+        }
+        else
+        {
+            $view_elements  = explode(':', $view);
 
-        return $this->render($template, $data);
+            if (count($view_elements) === 1)
+            {
+                array_unshift($view_elements, $this->getEntityName());
+            }
+
+            if (count($view_elements) === 2)
+            {
+                array_unshift($view_elements, $this->getBundleName());
+            }
+        }
+
+        return $this->render(implode(':', $view_elements) . '.html.twig', $data);
     }
 
     /**

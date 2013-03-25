@@ -275,19 +275,6 @@ extends         EntityRepository
     }
 
     /**
-     * Метод возвращает репозиторий сущности.
-     *
-     * @param       string              $entity                                 Имя сущности
-     *
-     * @return      PaynetEasy\LkrecurBundle\Repository\AbstractRepository      Репозиторий
-     */
-    protected function getRepo($entity, $bundle = '')
-    {
-        return $this->getEntityManager()
-                    ->getRepository($this->getBundleName($bundle) . ':' . $entity);
-    }
-
-    /**
      * Метод возвращает список ассоциаций для "жадной" подгрузки
      *
      * @return     array
