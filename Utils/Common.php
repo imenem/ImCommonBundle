@@ -2,7 +2,8 @@
 
 namespace Im\CommonBundle\Utils;
 
-use RuntimeException;
+use Doctrine\Common\Persistence\ObjectManager,
+    RuntimeException;
 
 trait Common
 {
@@ -139,24 +140,19 @@ trait Common
     }
 
     /**
-     * Метод сохраняет переданную сущность.
-     *
-     * @param       object      $entity     Сущность с данными, которую нужно сохранить
-     */
-    protected function saveEntity($entity)
-    {
-        $em = $this->getEntityManager();
-
-        $em->persist($entity);
-        $em->flush();
-    }
-
-    /**
      * Метод сохраняет все измененные ранее сущности в БД
      */
     protected function saveEntities()
     {
+        $entities = func_get_args();
+
         $this->getEntityManager()
-             ->flush();
+            ->transactional(function(ObjectManager $em) use ($entities)
+            {
+                foreach ($entities as $entity)
+                {
+                    $em->persist($entity);
+                }
+            });
     }
 }
