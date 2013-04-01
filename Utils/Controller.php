@@ -7,7 +7,8 @@ use LogicException,
 
 trait Controller
 {
-    use Common;
+    use Common,
+        Logger;
 
     /**
      * Метод возвращает контейнер с сервисами
@@ -38,14 +39,20 @@ trait Controller
     abstract protected function has($key);
 
     /**
-     * Метод возвращает менеджер сущностей Doctrine.
-     *
-     * @return      Doctrine\ORM\EntityManager      Менеджер сущностей
+     * {@inheritdoc}
      */
     protected function getEntityManager()
     {
         return $this->getDoctrine()
                     ->getManager();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getLogger()
+    {
+        return $this->get('logger');
     }
 
     /**

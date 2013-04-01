@@ -29,20 +29,6 @@ trait Common
     protected $entity = '';
 
     /**
-     * Метод логгирует исключение
-     *
-     * @param           \Exception          $e          Исключение, которое нужно логгировать
-     */
-    protected function logException(\Exception $e)
-    {
-        $message = '[' . \get_class($this) . ']: ' .
-                   \get_class($e) . ': ' . $e->getMessage();
-
-        $this->get('logger')
-             ->error($message);
-    }
-
-    /**
      * Метод возвращает репозиторий сущностей.
      * Если имя репозитория не передано в параметре метода,
      * то берется имя репозитория по умолчанию из свойства класса.
